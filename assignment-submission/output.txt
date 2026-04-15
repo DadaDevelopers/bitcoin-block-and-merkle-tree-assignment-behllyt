@@ -1,0 +1,40 @@
+=== Merkle Tree Construction ===
+
+Input Transactions:
+ : a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2
+T: b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3
+A: c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4
+B: d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5
+
+Level 0 - Leaf Nodes (Transactions):
+  TxA: a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2
+  TxB: b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3
+  TxC: c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4
+  TxD: d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5
+
+Level 1 - Combining Pairs:
+  Hash(AB): b0dd79c9253f6a7a62882f77f8876afd20ddf4795a71c60233e97e1997881265
+  Hash(CD): 6f8b145ac23586a83c467945fad815b24ab348aaa1b243d41d97e02bee890c19
+
+Level 2 - Merkle Root:
+  MerkleRoot: a157aa34442f29fcb1d945b4309d8954ebae056427b5934f01745731921a7cb1
+
+=== Merkle Tree Diagram ===
+
+                    a157aa34... (Merkle Root)
+                        |
+            +-----------+-----------+
+            |                       |
+  b0dd79c9... (Hash AB)    6f8b145a... (Hash CD)
+            |                       |
+        +---+---+               +---+---+
+        |       |               |       |
+  a1b2c3d4...  b2c3d4e5...  c3d4e5f6...  d4e5f6a7...
+   (TxA)    (TxB)      (TxC)    (TxD)
+
+=== Summary ===
+Step 1: Start with 4 transaction hashes as leaf nodes
+Step 2: Hash TxA + TxB together to get Hash(AB)
+Step 3: Hash TxC + TxD together to get Hash(CD)
+Step 4: Hash Hash(AB) + Hash(CD) to get Merkle Root
+Final Merkle Root: a157aa34442f29fcb1d945b4309d8954ebae056427b5934f01745731921a7cb1
